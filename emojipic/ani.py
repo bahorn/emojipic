@@ -18,20 +18,28 @@ def main(filename, resize, colors=None, webcam=False, invert=False,
 
     ei = pic.EmojiImage(colors=colors, invert=invert, scale=scale)
 
+    rval = False
+    height = 0
+    # Get the first frame to read the properties.
     if vc.isOpened():
-        rval = True
-        while rval:
-            start = time.time()
-            rval, frame = vc.read()
-            if rval:
-                ei.fromarray(frame)
-                res, height = ei.make(resize)
-                print(res, end='')
-                clearscreen(height*scale[1])
-            # determine if we need to sleep. Not really that accurate, but i'm
-            # lazy and this is good enough.
-            diff = time.time()-start
-            if  webcam is False and diff < tpf:
-                time.sleep(tpf-diff)
+        rval, frame = vc.read()
+        ei.fromarray(frame)
+        res, height = ei.make(resize)
+        print(res, end='')
+
+    while rval:
+        start = time.time()
+        clearscreen(height*scale[1])
+        rval, frame = vc.read()
+        if rval:
+            ei.fromarray(frame)
+            res, height = ei.make(resize)
+            print(res, end='')
+
+        # determine if we need to sleep. Not really that accurate, but i'm
+        # lazy and this is good enough.
+        diff = time.time()-start
+        if webcam is False and diff < tpf:
+            time.sleep(tpf-diff)
 
     vc.release()
