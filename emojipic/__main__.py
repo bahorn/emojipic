@@ -26,6 +26,8 @@ if __name__ == "__main__":
                         help='Repeat the characters on the x axis N times')
     parser.add_argument('--yscale', type=int, default=1,
                         help='Repeat the characters on the Y axis N times')
+    parser.add_argument('--nosleep', action='store_true', default=False,
+                        help='Disables frame rate tracking')
     args = parser.parse_args()
 
     colors = colorschemes[args.colors]
@@ -43,6 +45,6 @@ if __name__ == "__main__":
             print(ei.make(args.resize)[0])
         elif filetype in formats.opencv_supported_formats:
             ani.main(args.filename, args.resize, colors, invert=args.invert,
-                     scale=scale)
+                     scale=scale, nosleep=args.nosleep)
         else:
             print('Format not supported')

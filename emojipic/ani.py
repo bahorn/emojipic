@@ -12,7 +12,7 @@ def clearscreen(n):
 
 
 def main(filename, resize, colors=None, webcam=False, invert=False,
-         scale=(1, 1)):
+         scale=(1, 1), nosleep=False):
     vc = cv2.VideoCapture(filename)
     tpf = 1.0/vc.get(cv2.CAP_PROP_FPS)
 
@@ -39,7 +39,7 @@ def main(filename, resize, colors=None, webcam=False, invert=False,
         # determine if we need to sleep. Not really that accurate, but i'm
         # lazy and this is good enough.
         diff = time.time()-start
-        if webcam is False and diff < tpf:
+        if webcam is False and nosleep is False and diff < tpf:
             time.sleep(tpf-diff)
 
     vc.release()

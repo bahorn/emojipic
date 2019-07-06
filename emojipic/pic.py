@@ -27,8 +27,11 @@ class EmojiImage:
 
     def make(self, resize=64):
         img = self.img.copy()
-        img.thumbnail((resize, resize))
+        # check if we need to make it a thumbnail
         width, height = img.size
+        if width > resize and height > resize:
+            img.thumbnail((resize, resize))
+            width, height = img.size
         # Go through and build our output string up pixel by pixel
         output = ""
         for y in range(height):
