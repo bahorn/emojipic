@@ -35,9 +35,36 @@ block_colors = [
     (0xffffff00, '█'),  # White
 ]
 
+# Generate the colors because we are lazy :)
+# We are using the ubuntu color scheme.
+ansi_spec = [
+    (30, 0x000000),
+    (31, 0xde382b),
+    (32, 0x39b54a),
+    (33, 0xff7706),
+    (34, 0x006fb8),
+    (35, 0x762671),
+    (36, 0x29b571),
+    (37, 0xcccccc),
+    (90, 0x808080),
+    (91, 0xff0000),
+    (92, 0x00ff00),
+    (93, 0xffff00),
+    (94, 0x0000ff),
+    (95, 0xff00ff),
+    (96, 0x00ffff),
+    (97, 0xffffff),
+]
+
+ansi_colors = []
+for code, value in ansi_spec:
+    color = '\033[{}m█\033[0m'.format(code)
+    ansi_colors.append((value*0x100, color))
+
 # Object exposed to make it easier for the user to select the scheme
 colorschemes = {
     'blackwhite': blackwhite_colors,
     'blocks': block_colors,
     'default': default_colors,
+    'ansi': ansi_colors,
 }
