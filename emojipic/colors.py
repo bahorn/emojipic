@@ -21,3 +21,23 @@ default_colors = [
     (0xff00ff00, '🐽'),  # Fuchsia
     (0x00ffff00, '🐳'),  # Aqua
 ]
+
+blackwhite_colors = [
+    (0x00000000, ' '),  # Black
+    (0xffffff00, '█'),  # White
+]
+
+block_colors = [
+    (0x00000000, ' '),  # Black
+    (0x3f3f3f00, '░'),  # Light
+    (0x7e7e7e00, '▒'),  # Medium
+    (0xbdbdbd00, '▓'),  # Dark
+    (0xffffff00, '█'),  # White
+]
+
+# Object exposed to make it easier for the user to select the scheme
+colorschemes = {
+    'blackwhite': blackwhite_colors,
+    'blocks': block_colors,
+    'default': default_colors,
+}

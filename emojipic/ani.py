@@ -11,11 +11,11 @@ def clearscreen(n):
     print('\033[1A\033[K'*n, end='')
 
 
-def main(filename, resize):
+def main(filename, resize, colors=None, webcam=False):
     vc = cv2.VideoCapture(filename)
     tpf = 1.0/vc.get(cv2.CAP_PROP_FPS)
 
-    ei = pic.EmojiImage()
+    ei = pic.EmojiImage(colors=colors)
 
     if vc.isOpened():
         rval = True
@@ -30,7 +30,7 @@ def main(filename, resize):
             # determine if we need to sleep. Not really that accurate, but i'm
             # lazy and this is good enough.
             diff = time.time()-start
-            if  diff < tpf:
+            if  webcam is False and diff < tpf:
                 time.sleep(tpf-diff)
 
     vc.release()
