@@ -11,11 +11,11 @@ def clearscreen(n):
     print('\033[1A\033[K'*n, end='')
 
 
-def main(filename, resize, colors=None, webcam=False):
+def main(filename, resize, colors=None, webcam=False, invert=False):
     vc = cv2.VideoCapture(filename)
     tpf = 1.0/vc.get(cv2.CAP_PROP_FPS)
 
-    ei = pic.EmojiImage(colors=colors)
+    ei = pic.EmojiImage(colors=colors, invert=invert)
 
     if vc.isOpened():
         rval = True

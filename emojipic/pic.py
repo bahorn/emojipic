@@ -7,7 +7,8 @@ import colors as colorschemes
 
 
 class EmojiImage:
-    def __init__(self, colors=None):
+    def __init__(self, colors=None, invert=False):
+        self.invert = invert
         if colors is not None:
             self.colors = colors
         else:
@@ -48,8 +49,11 @@ class EmojiImage:
             dist = math.sqrt(
                 (r1-r2)**2+(g1-g2)**2+(b1-b2)**2+(a1-a2)**2
             )
-
-            if best['value'] is None or dist < best['value']:
-                best = {'value': dist, 'symbol': symbol}
+            if self.invert:
+                if best['value'] is None or dist > best['value']:
+                    best = {'value': dist, 'symbol': symbol}
+            else:
+                if best['value'] is None or dist < best['value']:
+                    best = {'value': dist, 'symbol': symbol}
 
         return best['symbol']

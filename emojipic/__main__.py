@@ -20,20 +20,23 @@ if __name__ == "__main__":
     parser.add_argument('--colors', type=str, default='default',
                         choices=colorschemes.keys(),
                         help='Color Scheme')
+    parser.add_argument('--invert', action='store_true',
+                        help='Invert the color scheme')
     args = parser.parse_args()
 
     colors = colorschemes[args.colors]
 
     if args.webcam:
-        ani.main(int(args.filename), args.resize, colors, webcam=True)
+        ani.main(int(args.filename), args.resize, colors, webcam=True,
+                 invert=args.invert)
     else:
         # determine if we are going to treat it like a video or a image
         filetype = magic.from_file(args.filename, mime=True)
         if filetype in formats.pillow_supported_formats:
-            ei = pic.EmojiImage(colors)
+            ei = pic.EmojiImage(colors, invert=args.invert)
             ei.open(args.filename)
             print(ei.make(args.resize)[0])
         elif filetype in formats.opencv_supported_formats:
-            ani.main(args.filename, args.resize, colors)
+            ani.main(args.filename, args.resize, colors, invert=args.invert)
         else:
             print('Format not supported')
