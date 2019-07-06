@@ -7,8 +7,9 @@ import colors as colorschemes
 
 
 class EmojiImage:
-    def __init__(self, colors=None, invert=False):
+    def __init__(self, colors=None, invert=False, scale=(1, 1)):
         self.invert = invert
+        self.scale = scale
         if colors is not None:
             self.colors = colors
         else:
@@ -36,8 +37,8 @@ class EmojiImage:
                 r, g, b, a = img.getpixel((x, y))
 
                 selection = self._distcolor(r, g, b, a)
-                line += selection
-            output += line + '\n'
+                line += selection*self.scale[0]
+            output += (line + '\n')*self.scale[1]
         return (output, height)
 
     def _distcolor(self, r1, g1, b1, a1):
