@@ -20,6 +20,7 @@ default_colors = [
     (0x00008000, '🌃'),  # Navy
     (0xff00ff00, '🐽'),  # Fuchsia
     (0x00ffff00, '🐳'),  # Aqua
+    (0xFFC0CB00, '🌸'),  # Pink
 ]
 
 blackwhite_colors = [
